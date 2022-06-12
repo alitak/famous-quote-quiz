@@ -1,13 +1,13 @@
 version: '3'
 services:
 
-    famous_quote_quiz_redis:
-        container_name: famous_quote_quiz_redis
-        image: redis:6-alpine
-        volumes:
-            - redis:/data
-        networks:
-            - localhost
+#    famous_quote_quiz_redis:
+#        container_name: famous_quote_quiz_redis
+#        image: redis:6-alpine
+#        volumes:
+#            - redis:/data
+#        networks:
+#            - localhost
 
     famous_quote_quiz:
         container_name: famous_quote_quiz
@@ -28,6 +28,6 @@ networks:
     localhost:
         external: true
 
-volumes:
-    redis:
-        driver: local
+#volumes:
+#    redis:
+#        driver: local
