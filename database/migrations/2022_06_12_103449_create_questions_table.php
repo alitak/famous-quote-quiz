@@ -12,13 +12,14 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('personal_access_tokens', function (Blueprint $table) {
+        Schema::create('questions', function (Blueprint $table) {
             $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
+            $table->string('type')->default(\App\Enums\GameTypeEnum::MULTIPLE->value);
+            $table->string('question');
+            $table->string('answer_1')->nullable();
+            $table->string('answer_2')->nullable();
+            $table->string('answer_3')->nullable();
+            $table->tinyInteger('correct_answer');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('personal_access_tokens');
+        Schema::dropIfExists('questions');
     }
 };

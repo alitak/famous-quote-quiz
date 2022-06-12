@@ -9,15 +9,14 @@
 
     <title>{{ config('app.name', 'Laravel') }} Administration</title>
 
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @routes
 </head>
 <body>
 <div id="app">
@@ -29,6 +28,9 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.questions.index') }}">{{ __('Questions') }}</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.settings.index') }}">{{ __('Settings') }}</a>
                     </li>
@@ -49,5 +51,8 @@
         @yield('content')
     </main>
 </div>
+<!-- Scripts -->
+<script src="{{ mix('js/app.js') }}" defer></script>
+
 </body>
 </html>
