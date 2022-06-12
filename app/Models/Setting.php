@@ -26,6 +26,10 @@ class Setting extends Model
     | FUNCTIONS
     |--------------------------------------------------------------------------
     */
+    public static function get(string $key): string
+    {
+        return self::query()->where('key', $key)->first()->value;
+    }
 
     /*
     |--------------------------------------------------------------------------
