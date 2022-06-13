@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'kukel.attila@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$4F1aFbpiQFjZ/xt7Oj3nPORD4InM1IoLjQZ98Wyk0gOdU.tiBm3wm', // N2ga-wfMF8Cv7Gp
+            'is_admin' => 1,
         ]);
 
         Setting::query()->create([

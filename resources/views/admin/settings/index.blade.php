@@ -17,8 +17,8 @@
                     <td>{{ $setting->name }}</td>
                     <td>{{ $setting->key }}</td>
                     <td>{{ $setting->value }}</td>
-                    <td>
-                        <a href="{{ route('admin.settings.edit', $setting) }}">
+                    <td class="d-flex">
+                        <a class="btn btn-primary me-2" href="{{ route('admin.settings.edit', $setting) }}">
                             <i class="bi bi-pencil"></i>
                         </a>
                     </td>

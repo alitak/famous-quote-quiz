@@ -10,6 +10,32 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * App\Models\Question
+ *
+ * @property int $id
+ * @property string $type
+ * @property string $question
+ * @property string|null $answer_1
+ * @property string|null $answer_2
+ * @property string|null $answer_3
+ * @property int $correct_answer
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static Builder|Question newModelQuery()
+ * @method static Builder|Question newQuery()
+ * @method static Builder|Question query()
+ * @method static Builder|Question whereAnswer1($value)
+ * @method static Builder|Question whereAnswer2($value)
+ * @method static Builder|Question whereAnswer3($value)
+ * @method static Builder|Question whereCorrectAnswer($value)
+ * @method static Builder|Question whereCreatedAt($value)
+ * @method static Builder|Question whereId($value)
+ * @method static Builder|Question whereQuestion($value)
+ * @method static Builder|Question whereType($value)
+ * @method static Builder|Question whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Question extends Model
 {
     use HasFactory;

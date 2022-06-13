@@ -34,6 +34,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('admin.settings.index') }}">{{ __('Settings') }}</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
+                    </li>
                 </ul>
 
                 @include('partials.layout.user_dropdown')

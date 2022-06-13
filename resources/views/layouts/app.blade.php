@@ -28,7 +28,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto">
-
+                    {{-- policy would be better, or custom blade directive if there are roles/permission --}}
+                    @if(auth()->check() && auth()->user()->is_admin)
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('admin.dashboard') }}">{{ __('Admin') }}</a>
+                        </li>
+                    @endif
                 </ul>
 
                 @include('partials.layout.user_dropdown')
