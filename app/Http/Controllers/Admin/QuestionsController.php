@@ -19,7 +19,7 @@ class QuestionsController extends Controller
 
     public function create(): View
     {
-        return view('admin.questions.edit', ['question' => new Question(), 'game_types' => GameTypeEnum::cases()]);
+        return view('admin.questions.edit', ['question' => null, 'game_types' => GameTypeEnum::cases()]);
     }
 
     public function store(QuestionRequest $request): JsonResponse

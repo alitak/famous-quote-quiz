@@ -3,15 +3,9 @@
 namespace App\Http\Requests\Admin;
 
 use App\Rules\SettingValueByType;
-use Illuminate\Foundation\Http\FormRequest;
 
-class SettingRequest extends FormRequest
+class SettingRequest extends AdminRequest
 {
-    public function authorize(): bool
-    {
-        return auth()->check();
-    }
-
     public function rules(): array
     {
         return [
