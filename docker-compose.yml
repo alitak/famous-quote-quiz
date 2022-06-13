@@ -1,33 +1,64 @@
 version: '3'
 services:
 
-#    famous_quote_quiz_redis:
-#        container_name: famous_quote_quiz_redis
-#        image: redis:6-alpine
-#        volumes:
-#            - redis:/data
-#        networks:
-#            - localhost
+    #    famous_quote_quiz_redis:
+    #        container_name: famous_quote_quiz_redis
+    #        image: redis:6-alpine
+    #        volumes:
+    #            - redis:/data
+    #        networks:
+    #            - localhost
+
+    famous_quote_quiz_mysql:
+        image: mysql:8.0
+        container_name: famous_quote_quiz_mysql
+        restart: unless-stopped
+        ports:
+            - "29083:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: a
+        networks:
+            - localhost
+        volumes:
+            - mysql:/var/lib/mysql
+
+    famous_quote_quiz_adminer:
+        image: adminer
+        container_name: famous_quote_quiz_adminer
+        restart: unless-stopped
+        ports:
+            - "29084:8080"
+        environment:
+            - ADMINER_DESIGN=lucas-sandery
+            - ADMINER_DEFAULT_SERVER=famous_quote_quiz_mysql
+        networks:
+            - localhost
+        depends_on:
+            - famous_quote_quiz_mysql
 
     famous_quote_quiz:
         container_name: famous_quote_quiz
         build: .
-#        user: ${CURRENT_UID}
+        #        user: ${CURRENT_UID}
         volumes:
             - .:/var/www/
             - .docker/php.ini:/usr/local/etc/php/conf.d/php.ini
-#            - .docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-#        expose:
-#            - 9003
+        #            - .docker/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+        #        expose:
+        #            - 9003
         ports:
             - "29082:80"
         networks:
             - localhost
+        depends_on:
+            - famous_quote_quiz_mysql
 
 networks:
     localhost:
         external: true
 
-#volumes:
-#    redis:
-#        driver: local
+volumes:
+    #    redis:
+    #        driver: local
+    mysql:
+        driver: local
