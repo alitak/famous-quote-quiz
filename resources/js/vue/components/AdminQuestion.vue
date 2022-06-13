@@ -13,7 +13,7 @@
 export default {
     name: "AdminQuestion",
     props: {
-        entry: {type: Object, required: true},
+        entry: {type: Object, required: false},
         gameTypes: {type: Array, required: true},
     },
     data() {

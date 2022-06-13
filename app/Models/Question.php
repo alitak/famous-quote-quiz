@@ -68,7 +68,7 @@ class Question extends Model
             ->select(constant('self::FIELDS_FOR_' . Str::upper($game_type)))
             ->when(Setting::get('random_questions'), fn(Builder $query) => $query->inRandomOrder())
             ->where('type', $game_type)
-            ->take(3)
+            ->take(2) // should be a setting value maybe?
             ->get();
     }
 

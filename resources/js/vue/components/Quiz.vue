@@ -4,9 +4,13 @@
             <button class="btn btn-success" v-on:click="start" v-if="!isRunning && !isFinished ">START</button>
         </div>
 
+        <div class="alert alert-warning" v-if="missingQuiz">
+            Sorry, there are no questions at the moment. Please try again later!
+        </div>
+
         <div v-if="isRunning && currentTime > 0" class="mb-5">
             <div class="progress mb-3">
-                <div class="progress-bar progress-bar-striped progress-bar-animated" :class="progressBackground" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: progressPercent}">
+                <div class="progress-bar progress-bar-striped" :class="{progressBackground, 'progress-bar-animated': !isPaused}" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" :style="{width: progressPercent}">
                     {{ currentTime|timeForHumans }} / {{ timeForGame|timeForHumans }}
                 </div>
             </div>
@@ -46,6 +50,8 @@ export default {
         return {
             isRunning: false,
             isFinished: false,
+            isPaused: false,
+            missingQuiz: false,
             timeForGame: 10,
             currentTime: 0,
             questions: [],
@@ -87,9 +93,15 @@ export default {
     },
     methods: {
         start() {
-            axios.get(route('api.init'))
+            axios.get(route('api.quiz'))
                 .then(response => {
+                    this.missingQuiz = false
                     this.populateInitData(response.data)
+
+                    if (this.questions.length === 0) {
+                        this.missingQuiz = true
+                        return
+                    }
 
                     this.results.answer_count = 0
                     this.results.correct_answer = 0
@@ -99,14 +111,16 @@ export default {
                     this.currentQuestionId = 0
                     this.isRunning = true
                     this.timer = setInterval(() => {
+                        if (this.isPaused) return
+
                         if (this.currentTime === 0) {
                             clearInterval(this.timer)
-                            this.isFinished = true
+                            this.end()
                             return
                         }
 
-                        this.currentTime--;
-                    }, 50);
+                        this.currentTime--
+                    }, 1000)
                 })
         },
         populateInitData(data) {
@@ -115,6 +129,8 @@ export default {
             }
         },
         checkAnswer(result) {
+            this.isPaused = true
+
             this.results.answer_count++
             if (result) this.results.correct_answer++
             this.currentResult = result
@@ -124,14 +140,23 @@ export default {
 
             if (this.questions.length === this.currentQuestionId + 1) this.end()
             else this.currentQuestionId++
+            this.isPaused = false
         },
         end() {
+            let total_time = this.timeForGame - this.currentTime
+
+            axios.post(route('api.results'), {
+                total_score: this.results.correct_answer,
+                total_unanswered: this.questions.length - this.results.answer_count,
+                total_time: total_time,
+            })
+
             this.isFinished = true
             clearInterval(this.timer)
             this.questions = []
             this.isRunning = false
             this.currentResult = null
-            this.results.total_time = this.timeForGame - this.currentTime
+            this.results.total_time = total_time
         },
         restart() {
             this.isFinished = false

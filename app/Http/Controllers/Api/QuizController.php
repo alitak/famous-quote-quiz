@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Setting;
+use Illuminate\Http\JsonResponse;
 
-class ApiController extends Controller
+class QuizController extends Controller
 {
-    public function __invoke()
+    public function __invoke(): JsonResponse
     {
         return response()->json([
             'timeForGame' => Setting::get('time_for_game') * 60,
