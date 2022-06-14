@@ -23,8 +23,8 @@ RUN apt-get install -y \
 RUN a2enmod rewrite proxy proxy_http proxy_wstunnel headers
 
 # install redis
-RUN pecl install redis && \
-    docker-php-ext-enable redis
+#RUN pecl install redis && \
+#    docker-php-ext-enable redis
 
 # install php extensions
 RUN docker-php-ext-install \
@@ -39,19 +39,27 @@ RUN docker-php-ext-install -j$(nproc) gd
 RUN docker-php-ext-enable gd
 
 # xdebug
-RUN apt-get install $PHPIZE_DEPS \
-    && pecl install xdebug-3.1.4
+#RUN apt-get install $PHPIZE_DEPS \
+#    && pecl install xdebug-3.1.4
 #    && docker-php-ext-enable xdebug
 
 # copy files
 WORKDIR /var/www
+COPY ./ /var/www
 
 # install composer packages
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN composer install
+
+# install npm
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install && \
+    npm run prod
 
 # apache, php setup
 COPY ./.docker/apache.conf /etc/apache2/sites-available/000-default.conf
-RUN echo 'memory_limit = 1024G' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
+RUN echo 'memory_limit = 256M' >> /usr/local/etc/php/conf.d/docker-php-memlimit.ini;
 
 # cleanup
 RUN rmdir /var/www/html && \

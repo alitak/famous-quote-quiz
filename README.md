@@ -2,14 +2,9 @@
 
 ## Test Task for Flat Rock Technology
 
-### Install #1 (via docker container)
-- configure docker-compose.yml
+### Install via docker container
+- configure docker-compose.yml [OPTIONAL]
 - docker-compose up --build
-- cp .env.example .env
-- setup database connection
-- php artisan migrate
-
-### Install #2
-- cp .env.example .env
-- setup database connection
-- php artisan migrate
+- cp .env.example .env [OPTIONAL]
+- setup database connection [OPTIONAL]
+- docker exec -it famous_quote_quiz php artisan migrate --seed
