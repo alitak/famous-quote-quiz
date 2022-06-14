@@ -141,6 +141,10 @@ export default {
             if (this.questions.length === this.currentQuestionId + 1) this.end()
             else this.currentQuestionId++
             this.isPaused = false
+
+            // send get request for current game mode OR create websocket for checking the game mode?
+            // if server game mode != this.gameType restart game
+            // todo send results?
         },
         end() {
             let total_time = this.timeForGame - this.currentTime

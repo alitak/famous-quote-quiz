@@ -5,9 +5,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Key</th>
-                <th scope="col">Value</th>
+                <th>Name</th>
+                <th>Key</th>
+                <th>Value</th>
                 <th>Actions</th>
             </tr>
             </thead>

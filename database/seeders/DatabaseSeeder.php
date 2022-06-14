@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\GameTypeEnum;
 use App\Models\Question;
+use App\Models\Result;
 use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -50,5 +51,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Question::factory()->count(50)->create();
+        Result::factory()->count(100)->create();
     }
 }

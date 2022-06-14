@@ -5,9 +5,9 @@
         <table class="table">
             <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Is admin</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Is admin</th>
                 <th>Actions</th>
             </tr>
             </thead>
