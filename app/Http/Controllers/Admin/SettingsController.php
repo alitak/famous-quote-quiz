@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\SettingRequest;
 use App\Models\Setting;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 
 class SettingsController extends Controller
@@ -20,7 +21,7 @@ class SettingsController extends Controller
         return view('admin.settings.edit', ['setting' => $setting]);
     }
 
-    public function update(SettingRequest $request, Setting $setting): Redirector
+    public function update(SettingRequest $request, Setting $setting): Redirector|RedirectResponse
     {
         $setting->update($request->validated());
 

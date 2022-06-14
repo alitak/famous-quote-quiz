@@ -31,7 +31,7 @@ class Result extends Model
     public static function getForTopScorers()
     {
         return self::query()
-            ->with(['user'])
+            ->withWhereHas('user')
             ->orderByDesc('total_score')
             ->orderByDesc('total_time')
             ->get();

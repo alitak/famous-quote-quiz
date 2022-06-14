@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\UserRequest;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 
 class UsersController extends Controller
@@ -21,7 +22,7 @@ class UsersController extends Controller
         return view('admin.users.edit', ['user' => $user]);
     }
 
-    public function update(UserRequest $request, User $user): Redirector
+    public function update(UserRequest $request, User $user): Redirector|RedirectResponse
     {
         $user->update($request->validated());
 
@@ -30,7 +31,7 @@ class UsersController extends Controller
         return redirect(route('admin.users.index'));
     }
 
-    public function destroy($id): Redirector
+    public function destroy($id): Redirector|RedirectResponse
     {
         User::query()->where('id', $id)->delete();
 
