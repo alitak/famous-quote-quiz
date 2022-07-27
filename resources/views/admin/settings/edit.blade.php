@@ -14,7 +14,7 @@
             </div>
             <div class="mb-3">
                 <label for="key" class="form-label disabled">@lang('Setting Key')</label>
-                <input type="text" class="form-control" id="key" disabled value="{{ $setting->name }}">
+                <input type="text" class="form-control" id="key" disabled value="{{ $setting->key }}">
             </div>
             <div class="mb-3">
                 <label for="value" class="form-label">@lang('Setting Value')</label>
